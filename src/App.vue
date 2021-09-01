@@ -1,15 +1,26 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <xess-menu v-bind:key = "menu.menuKey" v-bind:menuItems = "menu.menuItems"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Menu from './components/menu/Menu.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    "xess-menu" : Menu
+  },
+
+  data(){
+    return{
+      menu: {
+        menuItems : ["One", "Two", "Three"], 
+        menuKey: 0
+        }
+        
+      
+    }
   }
 }
 </script>
