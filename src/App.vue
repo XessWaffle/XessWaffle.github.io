@@ -16,7 +16,7 @@ export default {
   data(){
     return{
       menu: {
-        menuItems : ["One", "Two", "Three"], 
+        menuItems : ["Projects", "GitHub", "Contact"], 
         menuKey: 0
       }
         

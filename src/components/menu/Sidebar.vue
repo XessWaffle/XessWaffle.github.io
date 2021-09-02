@@ -1,11 +1,10 @@
 <template>
-    <div class = "sidebar-panel">
+    <div class = "sidebar-panel" @mouseenter = "hover" @mouseleave = "hover">
 
-        <button id = "name">{{this.name}}</button>
-
+        <button id = "name">{{this.active ? "XessWaffle": "XE"}}</button>
         <ul id = "menuHolder">
             <li v-for = "(item, index) in menuItems" v-bind:key = "index">
-                <menu-item v-bind:menuItem = "item" />
+                <menu-item v-bind:key = "itemKey" v-bind:active = "this.active" v-bind:menuItem = "item" />
             </li>
         </ul>    
     </div>
@@ -22,17 +21,26 @@ export default {
     
     data(){
         return{
-            name: "XessWaffle"
+            active: false,
+            itemKey: 0
         }
     },
 
     props: {
         menuItems: Array
+    },
+
+    methods:{
+        hover: function(){
+            this.active = !this.active;
+        }
     }
 }
 </script>
 
 <style scoped>
+
+
     #name{
         color: #ffffff;
         
@@ -46,7 +54,7 @@ export default {
 
         text-align: Left;
 
-        transition: 30px;
+        transition: 0.75s;
 
         width: 100%;
     }
@@ -62,6 +70,10 @@ export default {
         margin: 0px;
         padding-left: 0px;
         padding-right: 0px;
+        padding-bottom:10px;
+        padding-top:0px;
+        border-top: 2px solid #3d1253;
+        border-bottom: 2px solid #3d1253;
 
         width: 100%;
         
@@ -76,6 +88,12 @@ export default {
         height: 100vh;
         z-index: 999;
         padding: 1rem 20px 2rem 20px;
+        width: 50px;
+        transition: 0.75s;
+    }
+
+    .sidebar-panel:hover{
         width: 300px;
+        transition:0.7s;
     }
 </style>

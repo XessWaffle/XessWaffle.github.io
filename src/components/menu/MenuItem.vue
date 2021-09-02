@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button class = "menuButton" @click = "menuItemClicked">{{menuItem}}</button>
+        <button class = "menuButton" @click = "menuItemClicked">{{this.menuString}}</button>
     </div>
 </template>
 
@@ -10,12 +10,37 @@
 export default {
     name: "MenuItem",
     props:{
+        active: Boolean,
         menuItem: String
     },
 
     data(){
         return{
+            menuString: this.active ? this.menuItem : this.menuItem.charAt(0)
+        }
+    },
 
+    watch: { 
+        active: function() { // watch it
+            if(this.active){
+                this.menuString = this.menuItem
+
+                let elements = document.getElementsByClassName("menuButton");
+
+                for (let i = 0; i < elements.length; i++) {
+                    elements[i].style.textAlign = "right"
+                }
+
+            } else {
+                this.menuString = this.menuItem.charAt(0);
+                
+                let elements = document.getElementsByClassName("menuButton");
+
+                for (let i = 0; i < elements.length; i++) {
+                    elements[i].style.textAlign = "center"
+                }
+
+            }
         }
     },
 
@@ -45,6 +70,8 @@ export default {
         border: 3px solid #00000000;
         color: #eca1ff;
         background: none;
+
+        transition: 0.75s;
     }
 
     .menuButton:hover{
