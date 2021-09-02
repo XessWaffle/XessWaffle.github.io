@@ -46,8 +46,9 @@ export default {
         
         top:0px;
 
-        font-family: "Lucida Console", "Courier New", monospace;
+        font-family: 'Courier New', Courier, monospace;
         font-size: 30px;
+        font-style:italic;
 
         border: none;
         background-color: #00000000;
