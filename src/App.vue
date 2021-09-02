@@ -1,5 +1,7 @@
 <template>
-  <sidebar v-bind:key = "menu.menuKey" v-bind:menuItems = "menu.menuItems"/>
+  <div>
+    <sidebar v-bind:key = "menu.menuKey" v-bind:menuItems = "menu.menuItems"/>
+  </div>
 </template>
 
 <script>
@@ -16,7 +18,7 @@ export default {
       menu: {
         menuItems : ["One", "Two", "Three"], 
         menuKey: 0
-        }
+      }
         
       
     }

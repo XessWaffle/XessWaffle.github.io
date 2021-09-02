@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button id = "menuButton" @click = "menuItemClicked">{{menuItem}}</button>
+        <button class = "menuButton" @click = "menuItemClicked">{{menuItem}}</button>
     </div>
 </template>
 
@@ -33,5 +33,36 @@ export default {
 
 
 <style scoped>
+    .menuButton {
+    
+        width: 100%;
+        text-align:right;
 
+        font-family: "Lucida Console", "Courier New", monospace;
+        font-size: 30px;
+
+        padding-top: 20px;
+        border: 3px solid #00000000;
+        color: #eca1ff;
+        background: none;
+    }
+
+    .menuButton:hover{
+        color: white;
+        border-bottom-color:white;
+        border-bottom-right-radius: 20px;
+        font-size: 50px;
+        transition:0.5s;
+        box-shadow:0px 3px #5e286b;
+
+    }
+
+    .menuButton:active{
+        color: gray;
+        border-bottom-color: gray;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 60px;
+        transition: 0.2s;
+        
+    }
 </style>
