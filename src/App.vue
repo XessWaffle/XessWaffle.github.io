@@ -1,15 +1,14 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <xess-menu v-bind:key = "menu.menuKey" v-bind:menuItems = "menu.menuItems"/>
+  <sidebar v-bind:key = "menu.menuKey" v-bind:menuItems = "menu.menuItems"/>
 </template>
 
 <script>
-import Menu from './components/menu/Menu.vue'
+import Sidebar from './components/menu/Sidebar.vue'
 
 export default {
   name: 'App',
   components: {
-    "xess-menu" : Menu
+    "sidebar" : Sidebar
   },
 
   data(){
