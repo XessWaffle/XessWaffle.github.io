@@ -1,7 +1,7 @@
 import { getServerIP, getPort } from "../auth/access";
 import axios from 'axios'
 
-const url = `http://${getServerIP()}:${getPort()}/`
+const url = `https://${getServerIP()}:${getPort()}/`
 export default url;
 
 let metadata = {}
