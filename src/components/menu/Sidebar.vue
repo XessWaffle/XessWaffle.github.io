@@ -89,12 +89,12 @@ export default {
         height: 100vh;
         z-index: 999;
         padding: 1rem 20px 2rem 20px;
-        width: 50px;
+        width: 3vw;
         transition: 0.75s;
     }
 
     .sidebar-panel:hover{
-        width: 300px;
+        width: 20vw;
         transition:0.7s;
     }
 </style>

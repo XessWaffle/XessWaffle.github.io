@@ -2,7 +2,6 @@
   "name": "xessvue",
   "version": "0.1.0",
   "private": true,
-  "type":"module",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -10,7 +9,10 @@
     "deploy": "node scripts/gh-pages-deploy.js"
   },
   "dependencies": {
+    "@mdi/font": "^6.5.95",
+    "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "cors": "^2.8.5",
     "execa": "latest",
     "express": "^4.17.1",
     "vue": "^3.0.0"
