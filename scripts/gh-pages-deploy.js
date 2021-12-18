@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
 
-/* 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 */
-
 const execa = require("execa");
 const fs = require("fs");
 (async () => {

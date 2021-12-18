@@ -4,6 +4,7 @@ node_modules
 /src/auth
 /projects.json
 /projects
+/scripts
 
 
 # local env files
