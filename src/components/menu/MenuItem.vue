@@ -16,7 +16,7 @@ export default {
 
     data(){
         return{
-            menuString: this.active ? this.menuItem : this.menuItem.charAt(0)
+            menuString: this.active ? this.menuItem : ''
         }
     },
 
@@ -32,7 +32,7 @@ export default {
                 }
 
             } else {
-                this.menuString = this.menuItem.charAt(0);
+                this.menuString = '';
                 
                 let elements = document.getElementsByClassName("menuButton");
 

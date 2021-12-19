@@ -1,7 +1,7 @@
 <template>
     <div class = 'container'>
-        <button v-if = "!this.inputActive" class = 'defaultButton' @click = "this.inputActive = enabled;"><span :class = "'mdi ' + this.icon"></span></button>
-        <input v-if = "this.inputActive"  class = 'defaultButton lightweightInput' type = 'text' v-model = "key" @keyup.enter = "valueEmit(this.key)" @blur="valueEmit(this.key)"/>
+        <button v-if = "!this.inputActive" class = 'btndefault btntextdefault ' @click = "this.inputActive = enabled;"><span :class = "'mdi ' + this.icon"></span></button>
+        <input v-if = "this.inputActive"  class = 'btndefault btntextdefault lightweightInput' type = 'text' v-model = "key" @keyup.enter = "valueEmit(this.key)" @blur="valueEmit(this.key)"/>
     </div>
 
 </template>

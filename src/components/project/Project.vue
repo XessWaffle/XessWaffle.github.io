@@ -1,27 +1,20 @@
 <template>
-    <div>
+    <div :id = "this.title" class = "projectContainer">
+        <div class = "header" @click = "scrollUpdate()">
+            <transform-input-title :text = "this.title" :enabled = "dev" style = "grid-area:name" />
 
-        <div class = "header">
-            <h1 class = "projName">{{this.title}}</h1>
+            <transform-input-paragraph :text = "this.description" :enabled = "dev" style = "grid-area: description;"/>
 
-            <p class = "desc-p">{{description}}</p>
-
-            <button v-if = "!this.expand" class = "projectButton" @click = "this.expand = !this.expand">
-                <span class="mdi mdi-chevron-right"></span>
-            </button>
-            <button v-if = "this.expand" class = "projectButton" @click = "this.expand = !this.expand">
-                <span class="mdi mdi-chevron-down"></span>
-            </button>
-            
+            <span style = "grid-area: button;" :class = "`mdi ${!this.expand ? 'mdi-chevron-right': 'mdi-chevron-down'} btntextdefault chevron`"></span>
         </div> 
 
-       
-        
         <div class = "logs" v-if = "this.expand">
             
             <li v-for = "(log, index) in logs" v-bind:key="index">
-                <log :log = log />
+                <log :dev = "dev" :log = "log" />
             </li>
+
+            <li><button v-if = 'dev' class = "btnlogadd btndefault btntextdefault"><span class = "mdi mdi-plus"></span></button></li>
 
         </div>
 
@@ -29,6 +22,8 @@
 </template>
 
 <script>
+import TransformInputTitle from '../utils/TransformInputTitle.vue';
+import TransformInputParagraph from '../utils/TransformInputParagraph.vue';
 
 import Log from "./Log.vue"
 
@@ -36,16 +31,18 @@ export default {
     name: "Project",
 
     components: {
-        log: Log
+        'log': Log,
+        'transform-input-title': TransformInputTitle,
+        'transform-input-paragraph':TransformInputParagraph
     },
 
     props:{
         project: Object,
+        dev: Boolean,
     },
 
     data(){
         return{
-            showLog: false,
             expand: false
         }
     },
@@ -62,6 +59,12 @@ export default {
         logs: function(){
             return this.project.logs;
         }
+    },
+
+    methods:{
+        scrollUpdate: function(){
+            this.expand = !this.expand;
+        }
     }
 
 
@@ -73,75 +76,72 @@ export default {
 .header{
     display:grid;
 
-    grid-template-columns: 6fr 3fr 1fr;
+    grid-template-columns: 5fr 4fr 1fr;
     grid-template-areas: "name description button";
-
+    border-bottom: 0px solid #8221b3;
     padding: 5px;
-    border-top: 4px solid #3d1253;
+    border-radius: 10px;
     transition: 0.5s;
 }
 
 .header:hover{
-    border-top:6px solid #3d1253;
     font-size: 20px;
+    border-bottom: 2px solid #8221b3;
     transition:0.5s;
-}
-
-.projName{
-    grid-area: name;
-    font-family: "Lucida Console", "Courier New", monospace;
-    color: #eca1ff;
-}
-
-.projName:hover{
-    color: #3d1253;
-    transition:0.1s;
-}
-
-.desc-p{
-    grid-area: description;
-    text-align: center;
-    font-family: "Lucida Console", "Courier New", monospace;
-    
 }
 
 .logs{
-    border-top: 2px solid #8221b3;
     display: flex;
 }
 
-.projectButton {
-    
-    grid-area:button;
-
-    text-align:center;
-
-    font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 30px;
-    width: 10vh;
-    padding-top: 20px;
-    border: 3px solid #00000000;
-    color: #eca1ff;
-    background: none;
-    transition: 0.75s;
-}
-
-.projectButton:hover{
-    color: black;
-    border-bottom-color:black;
-    border-bottom-right-radius: 20px;
+.chevron{
     font-size: 40px;
-    transition:0.5s;
-    box-shadow:0px 3px #5e286b;
-
 }
 
-.projectButton:active{
-    color: gray;
-    border-bottom-color: gray;
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 20px;
-    transition: 0.1s;
+.btnlogadd{
+    border-color: purple;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 1px;
+    border-left-color: #8221b356;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    width: 5vw;
+    height:100%;
+}
+
+.btnlogadd:hover{
+    border-color: white;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-top-right-radius: 60px;
+    border-bottom-right-radius: 60px;
     
 }
+
+.btnlogadd:active{
+    border-color: white;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 0px;
+    
+}
+
+
+.header:hover{
+    border-width:6px;
+    transition:0.5s;
+}
+
+.header:active{
+    color:gray;
+}
+
+
 </style>

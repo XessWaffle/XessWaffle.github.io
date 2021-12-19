@@ -42,18 +42,19 @@ export default {
     font-size: 30px;
     text-align: center;
     border: none;
+    transition:0.5s;
     background-color: #00000000;
 
 }
 
 .projName:hover{
-    color: #3d1253;
+    color: white;
     transition:0.5s;
     font-size:40px;
 }
 
 .projNameInput{
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid white;
 }
 
 .projNameInput:focus{

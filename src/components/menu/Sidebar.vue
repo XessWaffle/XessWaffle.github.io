@@ -1,12 +1,21 @@
 <template>
     <div class = "sidebar-panel" @mouseenter = "hover" @mouseleave = "hover">
 
-        <button id = "name">{{this.active ? "XessWaffle": "XE"}}</button>
-        <ul id = "menuHolder">
+        <button id = "name">{{this.active ? "XessWaffle": ""}}</button>
+        <div id = "menuHolder">
             <li v-for = "(item, index) in menuItems" v-bind:key = "index">
                 <menu-item v-bind:key = "itemKey" v-bind:active = "this.active" v-bind:menuItem = "item" />
             </li>
-        </ul>    
+        </div> 
+        <div v-if = "this.active" style = "padding: 10px; display:flex; justify-content: space-between">
+            <button class = "btnpwd" id = "one" @click = "sendClick(1)"></button>
+            <button class = "btnpwd" id = "two" @click = "sendClick(2)"></button>
+            <button class = "btnpwd" id = "three" @click = "sendClick(3)"></button>
+            <button class = "btnpwd" id = "four" @click = "sendClick(4)"></button>
+            <button class = "btnpwd" id = "five" @click = "sendClick(5)"></button>
+            <button class = "btnpwd" id = "six" @click = "sendClick(6)"></button>
+        </div>
+           
     </div>
 </template>
 
@@ -33,6 +42,10 @@ export default {
     methods:{
         hover: function(){
             this.active = !this.active;
+        },
+
+        sendClick: function(btnval){
+            this.$emit("pwdClick", {value: btnval});
         }
     }
 }
@@ -89,12 +102,37 @@ export default {
         height: 100vh;
         z-index: 999;
         padding: 1rem 20px 2rem 20px;
-        width: 3vw;
+        width: 0vw;
         transition: 0.75s;
     }
 
     .sidebar-panel:hover{
-        width: 20vw;
+        width: 20rem;
         transition:0.7s;
+    }
+
+    .btnpwd{
+        width: 2rem;
+        height: 2rem;
+        border: 2px solid purple;
+        border-radius: 5px;
+        box-shadow: none;
+        background:none;
+        transition: 0.5s;
+    }
+
+    .btnpwd:hover{
+        border: 2px solid whitesmoke;
+        background-color: #440464;
+        box-shadow: 4px 4px rgb(55, 19, 85);
+        transition: 0.5s;
+
+    }
+
+    .btnpwd:active{
+        border-color:gray;
+        background-color: whitesmoke;
+        box-shadow: none;
+        transition: 0.1s;
     }
 </style>

@@ -47,14 +47,14 @@ export default {
 }
 
 .para:hover{
-    color: black;
+    color: white;
     transition:0.5s;
 }
 
 .lightweightInput{
     width:100%;
     height: 100%;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid white;
 }
 
 .lightweightInput:focus{

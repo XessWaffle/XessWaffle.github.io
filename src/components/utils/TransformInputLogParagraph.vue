@@ -39,7 +39,7 @@ export default {
     font-family: "Lucida Console", "Courier New", monospace;
     text-align: left;
     border: none;
-    color: black;
+    color:rgb(125, 85, 151);
     font-size: 10px;
     background-color: #00000000;
     overflow-y:auto;
@@ -47,7 +47,7 @@ export default {
 }
 
 .para:hover{
-    color: gray;
+    color: white;
     transition:0.5s;
 }
 

@@ -1,13 +1,16 @@
 <template>
   <div>
-    <sidebar v-bind:key = "menu.menuKey" v-bind:menuItems = "menu.menuItems"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <div id = "informationSpace">
-      <ul id = "p-list" :key = "this.projectKey">
-          <li v-for = "(project, index) in projects" v-bind:key = "index"> 
-            <project :project = "project" />
-          </li>
-      </ul>
+    <sidebar v-bind:key = "menu.menuKey" v-bind:menuItems = "menu.menuItems" @pwdClick = "processAuth($event)"/>
+
+    <div id = "informationSpace" :key = "this.projectKey">
+        <h1 id = "header"> Projects </h1>
+        <li v-for = "(project, index) in projects" v-bind:key = "index"> 
+          <project :dev = "this.devMode" :project = "project" />
+        </li>
+
+        <transform-input-icon style = "padding-bottom: 3vw" :enabled = "this.devMode" icon = "mdi-plus" />
     </div>
 
   </div>
@@ -16,13 +19,16 @@
 <script>
 import Sidebar from './components/menu/Sidebar.vue'
 import Project from './components/project/Project.vue'
+import TransformInputIcon from './components/utils/TransformInputIcon.vue'
 import {setup, getTitles, getProjects} from './server/logclient.js'
+import {authenticate} from './auth/access.js'
 export default {
   name: 'App',
 
   components: {
     "sidebar" : Sidebar,
-    "project" : Project
+    "project" : Project,
+    "transform-input-icon":TransformInputIcon
   },
 
   data(){
@@ -31,6 +37,8 @@ export default {
         menuItems : ["Projects", "GitHub", "Contact"], 
         menuKey: 0
       },
+
+      devMode: false,
 
       projectKey: 0
     }
@@ -52,6 +60,15 @@ export default {
   },
 
   methods: {
+    processAuth: function(e){
+      if(authenticate(e.value)){
+        this.devMode = true;
+      } else {
+        this.devMode = false;
+      }
+
+      this.projectKey++;
+    }
   }
 }
 </script>
@@ -66,6 +83,28 @@ export default {
   margin-top: 60px;
 }
 
+#header{
+  color: #969696;
+
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 40px;
+  font-style:italic;
+
+  border: none;
+  background-color: #00000000;
+
+  text-align: Left;
+
+  transition: 0.75s;
+
+  padding-left: 3vw;
+  padding-top: 1vw;
+
+  border-top: 1px solid #96969670;
+
+  width: 10vw;
+}
+
 ul {
   margin: 0px;
   padding-left: 60px;
@@ -73,15 +112,64 @@ ul {
 }
 
 li{
-  padding-top: 10px;
+  padding: 10px;
+  list-style-type: none;
 }
 
 #informationSpace{
+  background:rgb(15, 0, 29);
   position: fixed;
   overflow-y: auto;
-  height: 100vh;
+  height: 100%;
   width: 97vw;
-  left: 3vw;
+  padding-left: 2rem;
+  padding-bottom: 2rem;
   top: 0px;
+}
+
+.btntextdefault{
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 30px;
+    width: 100%;
+    color: #eca1ff;
+}
+
+.btntextdefault:hover{
+  color: white;
+  font-size: 40px;
+  transition:0.5s;
+
+  transition: 0.5s;
+}
+
+.btntextdefault:active{
+  color: gray;
+  transition:0.5s;
+}
+
+.btndefault {
+
+    text-align:center;
+
+    
+    border: 3px solid #00000000;
+
+    background: none;
+    transition: 0.75s;
+}
+
+.btndefault:hover{
+    border-bottom-color:white;
+    border-bottom-right-radius: 20px;
+    transition:0.5s;
+}
+
+.btndefault:active{
+    
+    border-bottom-color: gray;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 20px;
+    transition: 0.1s;
+    
 }
 </style>
