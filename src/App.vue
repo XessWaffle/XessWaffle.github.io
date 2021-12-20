@@ -148,7 +148,7 @@ export default {
     },
     
     updateLogContent: function(e){
-      updateLogContent(this.servedData, e, this.servedDataUpdateCallback);
+      updateLogContent(this.servedData, e, () => {});
     },
 
   }
