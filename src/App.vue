@@ -7,10 +7,21 @@
     <div id = "informationSpace" :key = "this.projectKey">
         <h1 id = "header"> Projects </h1>
         <li v-for = "(project, index) in projects" v-bind:key = "index"> 
-          <project :dev = "this.devMode" :project = "project" />
+          <project :dev = "this.devMode" :project = "project" 
+                    @titleUpdate = "titleUpdate($event)" 
+                    @descriptionUpdate = "descriptionUpdate($event)" 
+                    @deleteProject = "deleteProject($event)"
+                    @addLog = "addLog($event)"
+                    @deleteLog = "deleteLog($event)"
+                    @addImage = "addImage($event)"
+                    @deleteImage = "deleteImage($event)"
+                    @shiftLog = "shiftLog($event)"
+                    @logTitleUpdate = "updateLogTitle($event)"
+                    @logDateUpdate = "updateLogDate($event)"
+                    @logContentUpdate = "updateLogContent($event)"/>
         </li>
 
-        <transform-input-icon style = "padding-bottom: 3vw" :enabled = "this.devMode" icon = "mdi-plus" />
+        <transform-input-icon v-if = "this.devMode" style = "padding-bottom: 3vw" :enabled = "this.devMode" icon = "mdi-plus" @valueUpdate = "createProject($event)"/>
     </div>
 
   </div>
@@ -20,7 +31,7 @@
 import Sidebar from './components/menu/Sidebar.vue'
 import Project from './components/project/Project.vue'
 import TransformInputIcon from './components/utils/TransformInputIcon.vue'
-import {setup, getTitles, getProjects} from './server/logclient.js'
+import {setup, createProject, deleteProject, updateTitle, updateDescription, addLog, shiftLog, deleteLog, updateLogDate, updateLogTitle, updateLogContent, deleteImage, addImage} from './server/logclient.js'
 import {authenticate} from './auth/access.js'
 export default {
   name: 'App',
@@ -40,26 +51,48 @@ export default {
 
       devMode: false,
 
+      servedData: {
+        titles: [],
+        projects: []
+      },
+
       projectKey: 0
     }
   },
 
   computed:{
     titles: function() {
-      return getTitles();
+      return this.servedData.titles;
     },
 
     projects: function(){
-      return getProjects();
+      return this.servedData.projects;
     }
    
   },
 
   mounted() {
-    setup(() => {this.projectKey++;});
+    setup((data) => {
+      this.servedData = data;
+      this.projectKey++;
+    
+    });
   },
 
   methods: {
+    servedDataUpdateCallback: function(data){
+      this.servedData = data;
+    }, 
+
+    refreshCallback: function(){
+      this.projectKey++;
+    },
+
+    combinedCallback: function(data){
+      this.servedDataUpdateCallback(data);
+      this.refreshCallback();
+    },
+
     processAuth: function(e){
       if(authenticate(e.value)){
         this.devMode = true;
@@ -68,7 +101,56 @@ export default {
       }
 
       this.projectKey++;
-    }
+    },
+
+    createProject: function(e){
+      createProject(e.value, this.combinedCallback);
+    },
+
+    deleteProject: function(e){
+      deleteProject(e.projectName, this.combinedCallback);
+    },
+
+    titleUpdate: function(e){
+      updateTitle(this.servedData, e, this.combinedCallback);
+    },
+
+    descriptionUpdate: function(e){
+      updateDescription(this.servedData, e, this.combinedCallback);
+    },
+
+    addLog: function(e){
+      addLog(this.servedData, e, this.servedDataUpdateCallback);
+    },
+
+    shiftLog: function(e){
+      shiftLog(this.servedData, e, this.servedDataUpdateCallback);
+    },
+
+    deleteLog: function(e){
+      deleteLog(this.servedData, e, this.servedDataUpdateCallback);
+    },
+
+    addImage: function(e){
+      addImage(this.servedData, e, this.servedDataUpdateCallback);
+    },
+
+    deleteImage: function(e){
+      deleteImage(this.servedData, e, this.servedDataUpdateCallback);
+    },
+
+    updateLogTitle: function(e){
+      updateLogTitle(this.servedData, e, this.servedDataUpdateCallback);
+    },
+    
+    updateLogDate: function(e){
+      updateLogDate(this.servedData, e, this.servedDataUpdateCallback);
+    },
+    
+    updateLogContent: function(e){
+      updateLogContent(this.servedData, e, this.servedDataUpdateCallback);
+    },
+
   }
 }
 </script>
@@ -81,6 +163,29 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  border-width: 3px;
+  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(15, 0, 29);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(87, 0, 114);
+  border-width:3px;
+  border-radius:2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(101, 0, 141)
 }
 
 #header{
@@ -137,8 +242,6 @@ li{
 .btntextdefault:hover{
   color: white;
   font-size: 40px;
-  transition:0.5s;
-
   transition: 0.5s;
 }
 

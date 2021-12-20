@@ -23,8 +23,10 @@ export default {
     },
     methods:{
         valueEmit: function(value){
-            this.$emit('valueUpdate', {value: value});
-            this.inputActive = false;
+            if(value != ''){
+                this.$emit('valueUpdate', {value: value});
+                this.inputActive = false;
+            }
         }
     }    
 }
@@ -40,7 +42,7 @@ export default {
     text-align: left;
     border: none;
     color:rgb(125, 85, 151);
-    font-size: 10px;
+    font-size: 15px;
     background-color: #00000000;
     overflow-y:auto;
     overflow-wrap:break-word

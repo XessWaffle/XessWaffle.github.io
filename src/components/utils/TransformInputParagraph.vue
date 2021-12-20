@@ -23,8 +23,10 @@ export default {
     },
     methods:{
         valueEmit: function(value){
-            this.$emit('valueUpdate', {value: value});
-            this.inputActive = false;
+            if(value != ''){
+                this.$emit('valueUpdate', {value: value});
+                this.inputActive = false;
+            }
         }
     }    
 }

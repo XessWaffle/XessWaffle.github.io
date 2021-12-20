@@ -23,9 +23,11 @@ export default {
     },
     methods:{
         valueEmit: function(value){
-            this.$emit('valueUpdate', {value: value});
-            this.key = "";
-            this.inputActive = false;
+            if(this.key != ""){    
+                this.$emit('valueUpdate', {value: value});
+                this.key = "";
+                this.inputActive = false;
+            }
         }
     }    
 }
