@@ -1,7 +1,7 @@
 <template>
     <div class = 'title'>
-        <button v-if = "!this.inputActive" class = 'logtitlefont' :style = "`fontsize = ${this.fontsize};`"  @click = "this.inputActive = enabled;">{{this.text}}</button>
-        <input v-if = "this.inputActive" class = 'logtitlefont logInput' :style = "`fontsize = ${this.fontsize};`"  type = 'text' v-model = "key" @keyup.enter = "valueEmit(this.key)" @blur="valueEmit(this.key)"/>
+        <button v-if = "!this.inputActive" class = 'logtitlefont' :style = "`font-size = ${this.fontsize};`"  @click = "this.inputActive = enabled;">{{this.text}}</button>
+        <input v-if = "this.inputActive" class = 'logtitlefont logInput' :style = "`font-size = ${this.fontsize};`"  type = 'text' v-model = "key" @keyup.esc = "this.inputActive = !this.inputActive" @keyup.enter = "valueEmit(this.key)" @blur="valueEmit(this.key)"/>
     </div>
 
 </template>

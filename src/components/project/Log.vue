@@ -3,8 +3,8 @@
         
         <div style = "overflow-y:auto; overflow-wrap: break-word;">
             <div class = "header">
-                <transform-input-log-title :text = "log.logTitle" :enabled = "dev" fontsize = "20px" @valueUpdate = "notifyLogTitle($event)"/>
-                <transform-input-log-title :text = "log.date" :enabled = "dev" fontsize = "15px" @valueUpdate = "notifyLogDate($event)"/>
+                <transform-input-log-title :text = "log.logTitle" :enabled = "dev" :fontsize = "'20px'" @valueUpdate = "notifyLogTitle($event)"/>
+                <transform-input-log-title :text = "log.date" :enabled = "dev" :fontsize = "'15px'" @valueUpdate = "notifyLogDate($event)"/>
             </div>
 
             <transform-input-log-paragraph :text = "log.log" :enabled = "dev" @valueUpdate = "notifyLogContent($event)"/>

@@ -11,6 +11,11 @@
                     @titleUpdate = "titleUpdate($event)" 
                     @descriptionUpdate = "descriptionUpdate($event)" 
                     @deleteProject = "deleteProject($event)"
+                    @addSection = "addSection($event)"
+                    @deleteSection = "deleteSection($event)"
+                    @sectionTitleUpdate = "updateSectionTitle($event)"
+                    @sectionContentUpdate = "updateSectionContent($event)"
+                    @sectionImageUpdate = "updateSectionImage($event)"
                     @addLog = "addLog($event)"
                     @deleteLog = "deleteLog($event)"
                     @addImage = "addImage($event)"
@@ -31,7 +36,11 @@
 import Sidebar from './components/menu/Sidebar.vue'
 import Project from './components/project/Project.vue'
 import TransformInputIcon from './components/utils/TransformInputIcon.vue'
-import {setup, createProject, deleteProject, updateTitle, updateDescription, addLog, shiftLog, deleteLog, updateLogDate, updateLogTitle, updateLogContent, deleteImage, addImage} from './server/logclient.js'
+
+import {setup, createProject, deleteProject, updateTitle, updateDescription, 
+        addLog, shiftLog, deleteLog, updateLogDate, updateLogTitle, updateLogContent, 
+        deleteImage, addImage, addSection, deleteSection, updateSectionContent, updateSectionTitle, updateSectionImage} from './server/logclient.js'
+
 import {authenticate} from './auth/access.js'
 export default {
   name: 'App',
@@ -117,6 +126,26 @@ export default {
 
     descriptionUpdate: function(e){
       updateDescription(this.servedData, e, this.combinedCallback);
+    },
+
+    addSection: function(e){
+      addSection(this.servedData, e, this.servedDataUpdateCallback);
+    },
+
+    deleteSection: function(e){
+      deleteSection(this.servedData, e, this.servedDataUpdateCallback);
+    },
+    
+    updateSectionTitle: function(e){
+      updateSectionTitle(this.servedData, e, this.servedDataUpdateCallback);
+    },
+    
+    updateSectionContent: function(e){
+      updateSectionContent(this.servedData, e, this.servedDataUpdateCallback);
+    },
+
+    updateSectionImage: function(e){
+      updateSectionImage(this.servedData, e, this.servedDataUpdateCallback);
     },
 
     addLog: function(e){
@@ -217,7 +246,7 @@ ul {
 }
 
 li{
-  padding: 10px;
+  padding: 0px;
   list-style-type: none;
 }
 
@@ -226,8 +255,8 @@ li{
   position: fixed;
   overflow-y: auto;
   height: 100%;
-  width: 97vw;
-  padding-left: 2rem;
+  width: 98vw;
+  padding-left: 2vw;
   padding-bottom: 2rem;
   top: 0px;
 }

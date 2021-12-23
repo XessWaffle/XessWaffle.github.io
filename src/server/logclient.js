@@ -13,6 +13,15 @@ function getDefaultLog(){
     };
 }
 
+function getDefaultSection(){
+    return {
+        title: "Section Titles",
+        id: guid(),
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent fermentum molestie nunc nec elementum. Nam consectetur magna vel diam ultrices posuere. Ut porttitor orci eu tortor venenatis, ac commodo libero molestie. Proin eu felis faucibus, congue dolor et, eleifend tortor. Donec vel cursus lorem, eget condimentum diam. Donec vehicula augue tortor. Curabitur in ex sit amet dui ornare consequat id sit amet ipsum. Sed sit amet egestas sem, eget commodo risus. Aliquam in velit vehicula mauris luctus suscipit. Maecenas consequat tellus diam, at tincidunt magna feugiat eu. Vestibulum vulputate metus in convallis bibendum.",
+        image: ''
+    };
+}
+
 /*function load(updateCallback){
     axios.get(url).then(res => {
         servedData = res.data;
@@ -64,6 +73,74 @@ export async function addLog(servedData, data, callback){
     servedData.projects.forEach(project => {
         if(data.id == project.id){
             project.logs.push(getDefaultLog());
+        }
+    });
+
+    updateProject(servedData, data.id, callback);
+}
+
+export async function addSection(servedData, data, callback){
+    servedData.projects.forEach(project => {
+        if(data.id == project.id){
+            if(!project.sections){
+                project["sections"] = [];
+            }
+
+            project.sections.push(getDefaultSection());
+        }
+    });
+
+    updateProject(servedData, data.id, callback);
+}
+
+export async function updateSectionTitle(servedData, data, callback){
+    servedData.projects.forEach(project => {
+        if(data.id == project.id){
+            project.sections.forEach(section => {
+                if(section.id == data.sectionData.id){
+                    section.title = data.sectionData.title;
+                }
+            });
+        }
+    });
+
+    updateProject(servedData, data.id, callback);
+}
+
+export async function updateSectionContent(servedData, data, callback){
+    servedData.projects.forEach(project => {
+        if(data.id == project.id){
+            project.sections.forEach(section => {
+                if(section.id == data.sectionData.id){
+                    section.text = data.sectionData.text;
+                }
+            });
+        }
+    });
+
+    updateProject(servedData, data.id, callback);
+}
+
+export async function updateSectionImage(servedData, data, callback){
+    servedData.projects.forEach(project => {
+        if(data.id == project.id){
+            project.sections.forEach(section => {
+                if(section.id == data.sectionData.id){
+                    section.image = data.sectionData.image;
+                }
+            });
+        }
+    });
+
+    updateProject(servedData, data.id, callback);
+}
+
+export async function deleteSection(servedData, data, callback){
+    servedData.projects.forEach(project => {
+        if(data.id == project.id){
+            project.sections = project.sections.filter((e) =>{
+                return e.id != data.sectionData.id;
+            });
         }
     });
 

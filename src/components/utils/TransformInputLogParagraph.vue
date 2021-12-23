@@ -1,7 +1,7 @@
 <template>
     <div class = 'paragraph'>
         <p v-if = "!this.inputActive" class = 'para' @click = "this.inputActive = enabled;">{{this.key}}</p>
-        <textarea rows = '20' v-if = "this.inputActive"  class = 'para lightweightInput' type = 'text' v-model = "key" @blur="valueEmit(this.key)"></textarea>
+        <textarea rows = '20' v-if = "this.inputActive"  class = 'para lightweightInput' type = 'text' v-model = "key" @keyup.esc = "this.inputActive = !this.inputActive" @blur="valueEmit(this.key)"></textarea>
     </div>
 
 </template>
@@ -36,6 +36,7 @@ export default {
 .paragraph{
     display:flex;
     justify-content: center;
+    padding: 5px;
 }
 .para{
     font-family: "Lucida Console", "Courier New", monospace;
@@ -44,8 +45,8 @@ export default {
     color:rgb(125, 85, 151);
     font-size: 15px;
     background-color: #00000000;
-    overflow-y:auto;
-    overflow-wrap:break-word
+    white-space: pre-wrap;
+    overflow-wrap:break-word;
 }
 
 .para:hover{

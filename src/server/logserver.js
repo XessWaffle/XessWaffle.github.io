@@ -136,13 +136,15 @@ function prepServer(){
         fs.writeFile(`./projects/${req.body.project.title}.json`, JSON.stringify(req.body.project), err => {
             if(err) throw err;
             console.log(`Updated project ${req.body.project.title}`);
-
-            serveData.projects = serveData.projects.filter(e => {
-                return e.title != req.body.project.title;
+            
+            serveData.projects = serveData.projects.map((e) => {
+                if(e.id == req.body.project.id){
+                    return req.body.project;
+                } else {
+                    return e;
+                }
             });
-
-            serveData.projects.push(req.body.project);
-
+            
             res.send("Success");
         });
     });

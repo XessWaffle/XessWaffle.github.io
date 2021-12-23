@@ -1,7 +1,7 @@
 <template>
     <div class = 'title'>
-        <button v-if = "!this.inputActive" class = 'projName' @click = "this.inputActive = enabled;">{{this.text}}</button>
-        <input v-if = "this.inputActive"  class = 'projName projNameInput' type = 'text' v-model = "key" @keyup.enter = "valueEmit(this.key)" @blur="valueEmit(this.key)"/>
+        <button v-if = "!this.inputActive" class = 'projName' :style = "getExpandedStyle()" @click = "this.inputActive = enabled;">{{this.text}}</button>
+        <input v-if = "this.inputActive"  class = 'projName projNameInput' :style = "getExpandedStyle()" type = 'text' v-model = "key" @keyup.esc = "this.inputActive = !this.inputActive" @keyup.enter = "valueEmit(this.key)" @blur="valueEmit(this.key)"/>
     </div>
 
 </template>
@@ -12,13 +12,15 @@ export default {
 
     props: {
         text: String,
-        enabled: Boolean
+        enabled: Boolean,
+        expanded: Boolean,
+        align: String,
     },
 
     data(){
         return {
             inputActive: false,
-            key: ''
+            key: '',
         }
     },
     methods:{
@@ -28,6 +30,28 @@ export default {
                 this.key = "";
                 this.inputActive = false;
             }
+        },
+
+        getExpandedStyle: function(){
+            let ret = "transition: 0.5s;";
+
+            console.log(this.expanded);
+
+            if(this.expanded){ 
+                ret += 'color: #969696;'
+                ret += "font-family: 'Courier New', Courier, monospace;"
+                ret += `text-align: ${this.align};`
+                ret += 'font-style: italic;'
+                ret += 'font-weight: bold;'
+                ret += 'font-size: 40px;'
+                ret += 'padding-left: 0px;'
+            } else {
+                ret += 'text-align: center;'
+                ret += 'font-style: normal;'
+                ret += 'font-size: 30px;'
+            }
+
+            return ret;
         }
     }    
 }
@@ -41,9 +65,9 @@ export default {
 .projName{
     font-family: "Lucida Console", "Courier New", monospace;
     color: #eca1ff;
-    font-size: 30px;
-    text-align: center;
     border: none;
+    width: 100%;
+    height:100%;
     transition:0.5s;
     background-color: #00000000;
 

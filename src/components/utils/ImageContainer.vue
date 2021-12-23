@@ -38,8 +38,11 @@ export default {
 .btndelete{
     font-size: 30px;
     text-align: center;
-    color: #00000000    ;
+    color: #00000000;
     transition:0.5s;
+
+    width: 100%;
+    height: 100%;
 }
 
 .btndelete:hover{
