@@ -1,30 +1,32 @@
 <template>
-  <div>
+  <div id = "app">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <sidebar v-bind:key = "menu.menuKey" v-bind:menuItems = "menu.menuItems" @pwdClick = "processAuth($event)"/>
 
-    <div id = "informationSpace" :key = "this.projectKey">
+    <div id = "informationSpace"  :key = "this.projectKey" :style = "onExpanded()">
         <h1 id = "header"> Projects </h1>
-        <li v-for = "(project, index) in projects" v-bind:key = "index"> 
-          <project :dev = "this.devMode" :project = "project" 
-                    @titleUpdate = "titleUpdate($event)" 
-                    @descriptionUpdate = "descriptionUpdate($event)" 
-                    @deleteProject = "deleteProject($event)"
-                    @addSection = "addSection($event)"
-                    @deleteSection = "deleteSection($event)"
-                    @sectionTitleUpdate = "updateSectionTitle($event)"
-                    @sectionContentUpdate = "updateSectionContent($event)"
-                    @sectionImageUpdate = "updateSectionImage($event)"
-                    @addLog = "addLog($event)"
-                    @deleteLog = "deleteLog($event)"
-                    @addImage = "addImage($event)"
-                    @deleteImage = "deleteImage($event)"
-                    @shiftLog = "shiftLog($event)"
-                    @logTitleUpdate = "updateLogTitle($event)"
-                    @logDateUpdate = "updateLogDate($event)"
-                    @logContentUpdate = "updateLogContent($event)"/>
-        </li>
+          <li v-for = "(project, index) in projects" v-bind:key = "index"> 
+            <project :dev = "this.devMode" :project = "project" :expanded = "false"
+                      @titleUpdate = "titleUpdate($event)" 
+                      @descriptionUpdate = "descriptionUpdate($event)" 
+                      @deleteProject = "deleteProject($event)"
+                      @addSection = "addSection($event)"
+                      @deleteSection = "deleteSection($event)"
+                      @sectionTitleUpdate = "updateSectionTitle($event)"
+                      @sectionContentUpdate = "updateSectionContent($event)"
+                      @sectionImageUpdate = "updateSectionImage($event)"
+                      @addLog = "addLog($event)"
+                      @deleteLog = "deleteLog($event)"
+                      @addImage = "addImage($event)"
+                      @deleteImage = "deleteImage($event)"
+                      @shiftLog = "shiftLog($event)"
+                      @logTitleUpdate = "updateLogTitle($event)"
+                      @logDateUpdate = "updateLogDate($event)"
+                      @logContentUpdate = "updateLogContent($event)"
+                      @expandEvent = "manageExpand($event)"/>
+
+          </li>
 
         <transform-input-icon v-if = "this.devMode" style = "padding-bottom: 3vw" :enabled = "this.devMode" icon = "mdi-plus" @valueUpdate = "createProject($event)"/>
     </div>
@@ -65,7 +67,9 @@ export default {
         projects: []
       },
 
-      projectKey: 0
+      projectKey: 0,
+      expandedProjectId: 'NONE',
+      scrollPosition: 0
     }
   },
 
@@ -95,6 +99,30 @@ export default {
 
     refreshCallback: function(){
       this.projectKey++;
+    },
+
+    manageExpand(e){
+      let infoSpace = document.getElementById("informationSpace");
+      if(e.expanded){
+        this.expandedProjectId = e.id;
+        infoSpace.scroll({top: 0, left: 0, behavior: 'smooth'});
+      } else {
+        this.expandedProjectId = 'NONE';
+        infoSpace.scroll({top: 0, left: 0, behavior: 'smooth'});
+      }
+    },
+
+    onExpanded(){
+      let ret = "overflow-y: ";
+      if(this.expandedProjectId != 'NONE'){
+        ret += "hidden;"
+        
+      } else {
+        ret += "auto;"
+      }
+
+      return ret;
+
     },
 
     combinedCallback: function(data){
@@ -253,7 +281,6 @@ li{
 #informationSpace{
   background:rgb(15, 0, 29);
   position: fixed;
-  overflow-y: auto;
   height: 100%;
   width: 98vw;
   padding-left: 2vw;

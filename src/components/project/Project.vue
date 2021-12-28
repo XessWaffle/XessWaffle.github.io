@@ -24,7 +24,7 @@
         <h4 v-if = "this.expand && this.logs.length > 0" class = "sectionTitle"> Logs </h4>  
         <div class = "logs" :style = "getExpansionStyle()" :key = "this.logKey">
             
-            <div v-if = "this.expand">
+            <div class = "logs" v-if = "this.expand">
                 <li v-for = "(log, index) in logs" v-bind:key="index">
                     <log :dev = "dev" :log = "log" @imageDelete = "deleteImage($event)" @deleteLog = "deleteLog($event)" @shiftLog = "shiftLog($event)" @logImageUpdate = "addImage($event)" @logTitleUpdate = "logTitleChange($event)" @logDateUpdate = "logDateChange($event)" @logContentUpdate = "logContentChange($event)"/>
                 </li>
@@ -57,11 +57,12 @@ export default {
     props:{
         project: Object,
         dev: Boolean,
+        expanded: Boolean,
     },
 
     data(){
         return{
-            expand: false,
+            expand: this.expanded,
             deleting: false,
             logKey: 0
         }
@@ -104,8 +105,6 @@ export default {
                 ret += "z-index: 998;"
                 ret += "background: rgb(15, 0, 29);"
                 ret += "overflow-y: auto;"
-            } else {
-                ret += "position: sticky;";
             }
 
             return ret;
@@ -143,6 +142,8 @@ export default {
             } else {
                 this.expand = !this.expand;
             }
+
+            this.$emit("expandEvent", {id: this.project.id, expanded: this.expand});
 
             this.logKey++;
         },
@@ -218,10 +219,7 @@ export default {
 </script>
 
 <style scoped>
-.projectContainer{
-    overflow-y:auto;
-    display:block;
-}
+
 .sectionTitle{
   color: #969696;
 
@@ -261,6 +259,7 @@ export default {
 
 .logs{
     display: flex;
+    flex-direction: row;
     overflow-x:auto;
 }
 

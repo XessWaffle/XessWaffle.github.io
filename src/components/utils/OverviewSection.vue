@@ -96,8 +96,4 @@ export default {
 .sectionTitle{
     width: 25%;
 }
-
-.section{
-
-}
 </style>
