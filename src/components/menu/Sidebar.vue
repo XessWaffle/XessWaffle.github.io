@@ -1,10 +1,10 @@
 <template>
     <div class = "sidebar-panel" @mouseenter = "hover" @mouseleave = "hover">
 
-        <button id = "name">{{this.active ? "XessWaffle": ""}}</button>
+        <button id = "name" @click = "menuInteractEvent({name: 'Home'})">{{this.active ? "XessWaffle": ""}}</button>
         <div id = "menuHolder">
             <li v-for = "(item, index) in menuItems" v-bind:key = "index">
-                <menu-item v-bind:key = "itemKey" v-bind:active = "this.active" v-bind:menuItem = "item" />
+                <menu-item v-bind:key = "itemKey" v-bind:active = "this.active" v-bind:menuItem = "item" @menuItemClicked = "menuInteractEvent($event)"/>
             </li>
         </div> 
         <div v-if = "this.active" style = "padding: 10px; display:flex; justify-content: space-between">
@@ -46,6 +46,10 @@ export default {
 
         sendClick: function(btnval){
             this.$emit("pwdClick", {value: btnval});
+        },
+
+        menuInteractEvent: function(e){
+            this.$emit("menuInteractEvent", e);
         }
     }
 }

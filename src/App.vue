@@ -2,10 +2,12 @@
   <div id = "app">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <sidebar v-bind:key = "menu.menuKey" v-bind:menuItems = "menu.menuItems" @pwdClick = "processAuth($event)"/>
+    <sidebar v-bind:key = "menu.menuKey" v-bind:menuItems = "menu.menuItems" @pwdClick = "processAuth($event)" @menuInteractEvent = "transitionMenu($event)"/>
 
     <div id = "informationSpace"  :key = "this.projectKey" :style = "onExpanded()">
-        <h1 id = "header"> Projects </h1>
+        <h1 id = "header"> {{this.menu.title}} </h1>
+
+        <div v-if = "this.menu.title == 'Projects'">
           <li v-for = "(project, index) in projects" v-bind:key = "index"> 
             <project :dev = "this.devMode" :project = "project" :expanded = "false"
                       @titleUpdate = "titleUpdate($event)" 
@@ -27,8 +29,21 @@
                       @expandEvent = "manageExpand($event)"/>
 
           </li>
+          <transform-input-icon v-if = "this.devMode" style = "padding-bottom: 3vw" :enabled = "this.devMode" icon = "mdi-plus" @valueUpdate = "createProject($event)"/>
+        </div>
 
-        <transform-input-icon v-if = "this.devMode" style = "padding-bottom: 3vw" :enabled = "this.devMode" icon = "mdi-plus" @valueUpdate = "createProject($event)"/>
+        <div v-if = "this.menu.title == 'Home'">
+          <p> Page In progress, take a look at the projects page! </p>
+        </div>
+
+        <div v-if = "this.menu.title == 'Contact'">
+          <p> Page In progress, take a look at the projects page!</p>
+        </div>  
+
+        <div v-if = "this.menu.title == 'GitHub'">
+          <p> Visit my <a href = "https://github.com/XessWaffle">GitHub</a>!</p>
+        </div>  
+
     </div>
 
   </div>
@@ -46,7 +61,6 @@ import {setup, createProject, deleteProject, updateTitle, updateDescription,
 import {authenticate} from './auth/access.js'
 export default {
   name: 'App',
-
   components: {
     "sidebar" : Sidebar,
     "project" : Project,
@@ -57,6 +71,7 @@ export default {
     return{
       menu: {
         menuItems : ["Projects", "GitHub", "Contact"], 
+        title: "Home",
         menuKey: 0
       },
 
@@ -99,6 +114,15 @@ export default {
 
     refreshCallback: function(){
       this.projectKey++;
+    },
+
+    transitionMenu: function(e){
+      this.menu.title = e.name;
+
+      if(e.name == 'GitHub'){
+        window.open("https://github.com/XessWaffle", '_blank');
+      }
+
     },
 
     manageExpand(e){

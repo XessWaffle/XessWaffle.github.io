@@ -46,7 +46,7 @@ export default {
 
     methods:{
         menuItemClicked: function(){
-            this.$emit("menuItmClicked", {name: this.menuItem});
+            this.$emit("menuItemClicked", {name: this.menuItem});
         }
     }
 
