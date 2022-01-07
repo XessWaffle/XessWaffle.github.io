@@ -9,7 +9,7 @@
 
         <div v-if = "this.menu.title == 'Projects'">
           <li v-for = "(project, index) in projects" v-bind:key = "index"> 
-            <project :dev = "this.devMode" :project = "project" :expanded = "false"
+            <project :dev = "this.devMode" :project = "project" :expanded = "false" :index = "index"
                       @titleUpdate = "titleUpdate($event)" 
                       @descriptionUpdate = "descriptionUpdate($event)" 
                       @deleteProject = "deleteProject($event)"

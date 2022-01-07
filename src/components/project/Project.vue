@@ -6,12 +6,13 @@
                 <span v-if = "this.deleting && dev" class = "mdi mdi-check btndeleteconfirm" @click = "this.deleting = false; confirmDelete();"></span>
                 <span v-if = "this.deleting && dev" class = "mdi mdi-close btndeleteconfirm" @click = "this.deleting = false"></span>
             </div>
+            <h2 id = "index" v-if = "!this.dev && !this.expand">{{this.index + 1}}</h2>
 
             <transform-input-title  align = "left" :text = "this.title" :enabled = "dev" :expanded = "this.expand" style = "grid-area:name; line-height: 100px;" @valueUpdate = "titleChange($event)" @click = "scrollUpdate(true)"/>
 
             <transform-input-paragraph :text = "this.description" :enabled = "dev" style = "grid-area: description;" @valueUpdate = "descriptionChange($event)" @click = "scrollUpdate(true)"/>
 
-            <span style = "grid-area: button;" :style = "getRotationStyle()" class = "mdi mdi-chevron-right btntextdefault chevron" @click = "scrollUpdate(!this.expand)"></span>
+            <span style = "grid-area: button; font-size: 40px;" :style = "getRotationStyle()" class = "mdi mdi-chevron-right btntextdefault chevron" @click = "scrollUpdate(!this.expand)"></span>
         </div>
 
         <div class = "information" v-if = "this.expand">
@@ -58,6 +59,7 @@ export default {
         project: Object,
         dev: Boolean,
         expanded: Boolean,
+        index: Number
     },
 
     data(){
@@ -246,16 +248,33 @@ export default {
     grid-template-columns:0.5fr 5fr 4fr 1fr;
     grid-template-areas: "delete name description button";
     border-bottom: 0px solid #8221b3;
+    color: #00000000;
     padding: 5px;
+    font-size: 30px;
     border-radius: 10px;
-    transition: 0.5s;
+    transition: 0.1s;
 }
 
 .header:hover{
-    font-size: 20px;
     border-bottom: 2px solid #8221b3;
     transition:0.5s;
+    color: rgba(255, 255, 255, 0.411);
 }
+
+.header:active{
+    border-bottom: 2px solid white;
+    transition:0.5s;
+    color: rgba(255, 255, 255, 1);
+}
+
+#index{
+    grid-area:delete;
+    text-align:center;
+    width:100%;
+    height:100%;
+
+}
+
 
 .logs{
     display: flex;
